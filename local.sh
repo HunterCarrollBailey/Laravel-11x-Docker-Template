@@ -33,4 +33,7 @@ case $1 in
 "stop") _stop ;;
 "rebuild") _rebuild ;;
 "ssh") _ssh ;;
+"migrate") _migrate ;;
+"migrateFresh") _migrateFresh ;;
+"clearcache") _clearcache ;;
 esac
