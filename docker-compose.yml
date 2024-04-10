@@ -20,7 +20,7 @@ services:
       - "80:80"
   # Database
   database:
-    image: mariadb:latest
+    image: mysql:latest
     volumes:
       - ./docker/volumes/mysql:/var/lib/mysql
     environment:
