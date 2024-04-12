@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('username')->unique()->nullable();
+            $table->string('preferred_name')->nullable();
+            $table->binary('avatar')->nullable();
             $table->timestamps();
         });
     }

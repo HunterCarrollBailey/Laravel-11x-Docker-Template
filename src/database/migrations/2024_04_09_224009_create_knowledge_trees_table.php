@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('knowledge_trees', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->default('Tree of Knowledge');
+            $table->integer('nodes')->default(0);
             $table->timestamps();
         });
     }

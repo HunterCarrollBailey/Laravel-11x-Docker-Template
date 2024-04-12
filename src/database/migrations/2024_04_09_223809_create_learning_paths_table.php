@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('learning_paths', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('private')->default(false);
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

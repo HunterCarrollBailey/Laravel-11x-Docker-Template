@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->foreignId('parent')->references('id')->on('groups');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
