@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.3.8-fpm
 
 WORKDIR /var/www
 
@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     git \
     jpegoptim optipng pngquant gifsicle \
     locales \
+    libpq-dev \
     unzip \
     vim \
     zip
@@ -28,10 +29,10 @@ RUN apt-get update && apt-get install -y \
 # Multibyte String
 RUN apt-get update && apt-get install -y libonig-dev && docker-php-ext-install mbstring
 
-# Miscellaneous
+# Miscellaneous Laravel Extensions
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install exif
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pgsql pdo_pgsql
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -40,10 +41,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 SHELL ["/bin/bash", "--login", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 RUN nvm install v20.12.1
+RUN apt-get install npm -y
 
-# Install Cron
-RUN apt-get update && apt-get install -y cron
-RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
-RUN touch /var/log/cron.log
-
-CMD bash -c "cron && php-fpm"
+CMD bash -c "php-fpm"
